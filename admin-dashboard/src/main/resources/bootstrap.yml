@@ -9,7 +9,8 @@ spring:
       routes:
         endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,hystrix.stream
       turbine:
-        clusters: default
+        enable: true
+        clusters: default,SERVICE-A
         url: http://localhost:8060/turbine.stream
 eureka:
   client:
