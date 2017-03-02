@@ -4,6 +4,7 @@
  */
 package com.suimi.hello.controllers;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +16,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BController {
 
-    @RequestMapping(value = "hello",method = RequestMethod.GET)
+    @RequestMapping(value = "hello", method = RequestMethod.GET)
     @HystrixCommand
     public String hello(String word) {
         log.info("hello {}", word);
         return "hello " + word;
+    }
+
+    @HystrixCommand
+    @RequestMapping(value = "add/{a}/{b}", method = RequestMethod.GET)
+    public int add(@PathVariable("a") int a, @PathVariable("b") int b) {
+        log.info("add {} and {}", a, b);
+        return a + b;
     }
 }
