@@ -21,6 +21,7 @@
         </encoder>
     </appender>
     <root level="info">
-        <appender-ref ref="logstash"/>
+        <!--<appender-ref ref="logstash"/>-->
+        <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
