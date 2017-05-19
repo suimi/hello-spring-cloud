@@ -18,25 +18,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @Configuration
+//@ConditionalOnProperty(prefix = "suimi.swagger", name = "enable")
 public class Swagger2Config {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.suimi.hello.controllers"))
-                .paths(PathSelectors.any())
-                .build();
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors
+                .basePackage("com.suimi.hello.controllers")).paths(PathSelectors.any()).build();
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Service A 测试实例")
-                .description("service a 接口描述")
-                .termsOfServiceUrl("http://blog.didispace.com/")
-                .contact(new Contact("suimi","","suimi@zlinepay.com"))
-                .version("1.0")
-                .build();
+        return new ApiInfoBuilder().title("Service A 测试实例").description("service a 接口描述")
+                                   .termsOfServiceUrl("http://blog.didispace.com/")
+                                   .contact(new Contact("suimi", "", "suimi@zlinepay.com")).version("1.0").build();
     }
 }

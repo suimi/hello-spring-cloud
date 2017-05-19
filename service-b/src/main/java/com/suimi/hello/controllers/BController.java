@@ -35,4 +35,9 @@ public class BController {
         log.info("result {}", add);
         return add;
     }
+
+    @RequestMapping(value = "channel", method = RequestMethod.GET)
+    public String channel(String request) {
+        return service.channel(request);
+    }
 }
