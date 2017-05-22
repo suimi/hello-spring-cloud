@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.suimi.hello.exception.AException;
+import com.suimi.hello.exception.AException.ErrorMsg;
 import com.suimi.hello.feigin.BService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -71,5 +73,15 @@ public class AController {
     @HystrixCommand
     public int add(@PathVariable("a") int a, @PathVariable("b") int b) {
         return bService.add(a, b);
+    }
+
+    @ApiOperation(value = "测试异常", notes = "测试异常")
+    @ApiImplicitParams({@ApiImplicitParam(name = "error", value = "error word", required = true, dataType = "String")})
+    @RequestMapping(value = "error", method = RequestMethod.GET)
+    public String error(String error) {
+        if ("error".equals(error)) {
+            throw new AException(new ErrorMsg("99", "系统错误"));
+        }
+        return error;
     }
 }
