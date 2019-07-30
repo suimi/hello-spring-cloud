@@ -18,4 +18,13 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8010/eureka/
+    #Eureka Client 增量更新周期，默认30s（正常情况下增量更新，超时或与Server端不一致等情况则全量更新）
+    registryFetchIntervalSeconds: 5
+
+# Ribbon 更新周期，默认5s
+ribbon:
+  ServerListRefreshInterval: 5000
+
+
+
 

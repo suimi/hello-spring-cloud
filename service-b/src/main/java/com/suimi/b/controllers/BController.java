@@ -4,11 +4,9 @@
  */
 package com.suimi.b.controllers;
 
+import com.suimi.b.health.HiggschainHealthIndicator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.suimi.b.client.ReduceApi;
@@ -21,11 +19,26 @@ public class BController implements ReduceApi {
     @Autowired
     private BService service;
 
+    @Autowired
+    private HiggschainHealthIndicator healthIndicator;
+
     @RequestMapping(value = "hello", method = RequestMethod.GET)
     @HystrixCommand
     public String hello(String word) {
         log.info("hello {}", word);
         return "hello " + word;
+    }
+
+    @RequestMapping(value = "status", method = RequestMethod.GET)
+    public String status() {
+        log.info("get status {}",healthIndicator.getStatus());
+        return "status: "+healthIndicator.getStatus();
+    }
+
+    @RequestMapping(value = "/update/{status}", method = RequestMethod.GET)
+    public String updateStatus(@PathVariable("status") String status) {
+        healthIndicator.setStatus(status);
+        return healthIndicator.getStatus();
     }
 
     @HystrixCommand
